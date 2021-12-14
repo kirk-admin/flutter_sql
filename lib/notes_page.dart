@@ -12,7 +12,7 @@ class NotesPage extends StatefulWidget {
 }
 
 class _NotesPageState extends State<NotesPage> {
-  late List<Note> notes;
+  List<Note> notes = [];
   bool isLoading = false;
 
   @override
@@ -32,7 +32,7 @@ class _NotesPageState extends State<NotesPage> {
   Future refreshNotes() async {
     setState(() => isLoading = true);
 
-    this.notes = await NotesDatabase.instance.readAllNotes();
+    notes = await NotesDatabase.instance.readAllNotes();
 
     setState(() => isLoading = false);
   }
@@ -40,7 +40,7 @@ class _NotesPageState extends State<NotesPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             'Notes',
             style: TextStyle(fontSize: 24),
           ),
@@ -48,9 +48,9 @@ class _NotesPageState extends State<NotesPage> {
         ),
         body: Center(
           child: isLoading
-              ? CircularProgressIndicator()
+              ? const CircularProgressIndicator()
               : notes.isEmpty
-                  ? Text(
+                  ? const Text(
                       'No Notes',
                       style: TextStyle(color: Colors.white, fontSize: 24),
                     )
@@ -70,9 +70,9 @@ class _NotesPageState extends State<NotesPage> {
       );
 
   Widget buildNotes() => StaggeredGridView.countBuilder(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         itemCount: notes.length,
-        staggeredTileBuilder: (index) => StaggeredTile.fit(2),
+        staggeredTileBuilder: (index) => const StaggeredTile.fit(2),
         crossAxisCount: 4,
         mainAxisSpacing: 4,
         crossAxisSpacing: 4,
